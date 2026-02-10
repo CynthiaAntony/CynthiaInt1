@@ -4,28 +4,44 @@ import "fmt"
 
 func main() {
 	var x, y float32
-	var c string
+	var c rune
 	fmt.Println("------Cynthia's Calculator------")
 	fmt.Print("Enter first number: ")
-	fmt.Scan(&x)
+	_, e1 := fmt.Scanln(&x)
+	if e1 != nil {
+		fmt.Println("Error: Invalid input. Please enter valid number")
+		return
+	}
 	fmt.Print("Enter second number: ")
-	fmt.Scan(&y)
+	_, e2 := fmt.Scanln(&y)
+	if e2 != nil {
+		fmt.Println("Error: Invalid input. Please enter valid number")
+		return
+	}
 	fmt.Print("Enter the choice of operation (+,-,*,/): ")
-	fmt.Scan(&c)
+	fmt.Scanf("%c", &c)
+	r, e := calc(x, y, c)
+	if e != nil {
+		fmt.Println(e)
+	} else {
+		fmt.Printf("Result: %v\n", r)
+	}
+}
+func calc(x, y float32, c rune) (float32, error) {
 	switch c {
-	case "+":
-		fmt.Printf("%v+%v=%v\n", x, y, x+y)
-	case "-":
-		fmt.Printf("%v-%v=%v\n", x, y, x-y)
-	case "*":
-		fmt.Printf("%v*%v=%v\n", x, y, x*y)
-	case "/":
+	case '+':
+		return x + y, nil
+	case '-':
+		return x - y, nil
+	case '*':
+		return x * y, nil
+	case '/':
 		if y == 0 {
-			fmt.Println("Error: Division by zero is not allowed.")
+			return 0, fmt.Errorf("Division by zero is not allowed.")
 		} else {
-			fmt.Printf("%v/%v=%v\n", x, y, x/y)
+			return x / y, nil
 		}
 	default:
-		fmt.Println("Invalid operation")
+		return 0, fmt.Errorf("Invalid operation")
 	}
 }

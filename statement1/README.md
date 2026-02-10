@@ -1,6 +1,7 @@
 #Statement 1-Golang calculator
 
 Program takes two float32 numbers and an operand and oututs result based on the operand
+I've used the table driven testing template for the test file
 
 ##Prerequisites
  - Go installed
@@ -12,6 +13,9 @@ Program takes two float32 numbers and an operand and oututs result based on the 
 
 2. Run program 
  go run main.go
+
+3. Run tests
+ go test
 
 ##Sample input
  ------Cynthia's Calculator------
