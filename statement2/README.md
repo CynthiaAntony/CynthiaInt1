@@ -1,6 +1,7 @@
-#Statement 1-Golang calculator
+#Statement 2-string list manager
 
-Program takes two float32 numbers and an operand and oututs result based on the operand
+Program takes string input and performs operations based on the input. List, add remove, check, quit.
+The data structure used is a map(string, int) which stores the string and the count
 
 ##Prerequisites
  - Go installed
@@ -13,6 +14,8 @@ Program takes two float32 numbers and an operand and oututs result based on the 
 2. Run program 
  go run main.go
 
+3 Run tests
+ go test -v
 ##Sample input
  -------String list manager-------
 
@@ -23,8 +26,10 @@ List
 Add
 Remove
 Check
-Quit: Add
-Enter new string: Hello
+Quit: add
+
+Enter new string: hi
+String added
 
 
 
@@ -33,8 +38,10 @@ List
 Add
 Remove
 Check
-Quit: Add
-Enter new string: Morning
+Quit: add
+
+Enter new string: hello
+String added
 
 
 
@@ -43,10 +50,10 @@ List
 Add
 Remove
 Check
-Quit: List
-String list:
-0: Hello
-1: Morning
+Quit: add
+
+Enter new string: hi
+String added
 
 
 
@@ -55,8 +62,34 @@ List
 Add
 Remove
 Check
-Quit: Remove
-Enter string to remove: Hello
+Quit: list
+
+String: Count
+hi: 2
+hello: 1
+
+
+
+Choose: 
+List
+Add
+Remove
+Check
+Quit: check
+
+Enter string to check: hello
+String 'hello' is in the list
+
+
+
+Choose: 
+List
+Add
+Remove
+Check
+Quit: remove
+
+Enter string to remove: hi
 String removed
 
 
@@ -66,9 +99,11 @@ List
 Add
 Remove
 Check
-Quit: List
-String list:
-0: Morning
+Quit: list
+
+String: Count
+hello: 1
+hi: 1
 
 
 
@@ -77,16 +112,6 @@ List
 Add
 Remove
 Check
-Quit: Check
-Enter string to check: Noon
-String not found
+Quit: quit
 
-
-
-Choose: 
-List
-Add
-Remove
-Check
-Quit: Quit
 Exiting...
