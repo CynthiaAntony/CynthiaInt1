@@ -5,9 +5,9 @@ import "testing"
 func Test1(t *testing.T) {
 	tests := []struct {
 		name    string
-		x, y    float32
+		x, y    float64
 		c       rune
-		want    float32
+		want    float64
 		wanterr bool
 	}{
 		{"Add", 10, 5, '+', 15, false},

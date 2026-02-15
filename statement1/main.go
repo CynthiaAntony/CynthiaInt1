@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func main() {
-	var x, y float32
+	var x, y float64
 	var c rune
 	fmt.Println("------Cynthia's Calculator------")
 	fmt.Print("Enter first number: ")
@@ -27,7 +27,7 @@ func main() {
 		fmt.Printf("Result: %v\n", r)
 	}
 }
-func calc(x, y float32, c rune) (float32, error) {
+func calc(x, y float64, c rune) (float64, error) {
 	switch c {
 	case '+':
 		return x + y, nil
