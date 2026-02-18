@@ -1,6 +1,6 @@
 # Git Commands Cheatsheet 
 
-### 1. Intiialize a repository - Create a new repository in the current folder
+### 1. Intialize a repository - Create a new repository in the current folder
 ```bash
 git init
 ```
