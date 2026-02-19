@@ -19,7 +19,11 @@ func main() {
 		return
 	}
 	fmt.Print("Enter the choice of operation (+,-,*,/): ")
-	fmt.Scanf("%c", &c)
+	_, e3 := fmt.Scanf("%c", &c)
+	if e3 != nil {
+		fmt.Println("Error: Invalid input. Please enter valid operator")
+		return
+	}
 	r, e := calc(x, y, c)
 	if e != nil {
 		fmt.Println(e)

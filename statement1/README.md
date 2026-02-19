@@ -19,8 +19,8 @@ I've used the table driven testing template for the test file
  go test
 
 ## Sample input
- ------Cynthia's Calculator------
- Enter first number: 1
- Enter second number: 5
- Enter the choice of operation (+,-,*,/): +
- Result: 6
+------Cynthia's Calculator------
+Enter first number: 1
+Enter second number: 5
+Enter the choice of operation (+,-,*,/): +
+Result: 6
