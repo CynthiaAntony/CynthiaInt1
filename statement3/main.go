@@ -28,12 +28,7 @@ func main() {
 				fmt.Println(e)
 				return
 			}
-			res := t.Add(str)
-			if res {
-				fmt.Println("String added")
-			} else {
-				fmt.Println(errors.New("Failed to add string"))
-			}
+			t.Add(str)
 			fmt.Printf("Added: %s\n", str)
 		case "remove":
 			fmt.Print("Enter string to remove: ")
@@ -46,7 +41,7 @@ func main() {
 			if res {
 				fmt.Printf("Removed: %s\n", str)
 			} else {
-				fmt.Println(errors.New("String not found"))
+				fmt.Println("String not found")
 			}
 		case "check":
 			fmt.Print("Enter string to check: ")
@@ -57,7 +52,7 @@ func main() {
 			}
 			res := t.Check(str)
 			if res {
-				fmt.Printf("String exists")
+				fmt.Println("String exists")
 			} else {
 				fmt.Printf("Not found: %s\n", str)
 			}
@@ -89,23 +84,23 @@ type Trie struct {
 }
 
 func InitTrie() *Trie {
-	return &Trie{root: &Node{make(map[rune]*Node), false}}
+	return &Trie{root: &Node{children: make(map[rune]*Node), isEnd: false}}
 }
-func (t *Trie) Add(s string) bool {
+func (t *Trie) Add(s string) {
 	current := t.root
 	for _, letter := range s {
 		if current.children[letter] == nil {
-			current.children[letter] = &Node{make(map[rune]*Node), false}
+			current.children[letter] = &Node{children: make(map[rune]*Node), isEnd: false}
 		}
 		current = current.children[letter]
 	}
 	current.isEnd = true
-	return true
 }
 func (t *Trie) Remove(s string) bool {
 	if len(s) == 0 {
 		return false
 	}
+	var deleted bool
 	var deleter func(current *Node, index int) bool
 	deleter = func(current *Node, index int) bool {
 		if len(s) == index {
@@ -113,19 +108,21 @@ func (t *Trie) Remove(s string) bool {
 				return false
 			}
 			current.isEnd = false
+			deleted = true
 			return len(current.children) == 0
 		}
-		if current.children[rune(s[index])] == nil {
+		ch := current.children[rune(s[index])]
+		if ch == nil {
 			return false
 		}
-		canDelete := deleter(current.children[rune(s[index])], index+1)
+		canDelete := deleter(ch, index+1)
 		if canDelete {
 			delete(current.children, rune(s[index]))
 		}
 		return !current.isEnd && len(current.children) == 0
 	}
 	deleter(t.root, 0)
-	return true
+	return deleted
 }
 func (t *Trie) Check(s string) bool {
 	current := t.root
