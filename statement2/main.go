@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -13,20 +14,37 @@ func main() {
 	fmt.Println("-------String list manager-------")
 	for {
 		fmt.Print("\n\n\nChoose: \nList\nAdd\nRemove\nCheck\nQuit: ")
-		c := strings.ToLower(takeinp(sc))
+		c, e := takeinp(sc)
+		if e != nil {
+			fmt.Println(e)
+			return
+		}
+		c = strings.ToLower(c)
 		fmt.Println()
 		switch c {
 		case "add":
 			fmt.Print("Enter new string: ")
-			s := takeinp(sc)
+			s, e := takeinp(sc)
+			if e != nil {
+				fmt.Println(e)
+				return
+			}
 			add(s, a)
 		case "remove":
 			fmt.Print("Enter string to remove: ")
-			s := takeinp(sc)
+			s, e := takeinp(sc)
+			if e != nil {
+				fmt.Println(e)
+				return
+			}
 			remove(s, a)
 		case "check":
 			fmt.Print("Enter string to check: ")
-			s := takeinp(sc)
+			s, e := takeinp(sc)
+			if e != nil {
+				fmt.Println(e)
+				return
+			}
 			t := check(s, a)
 			if t == true {
 				fmt.Printf("String '%v' is in the list\n", s)
@@ -79,9 +97,9 @@ func check(s string, a map[string]int) bool {
 	return false
 }
 
-func takeinp(sc *bufio.Scanner) string {
+func takeinp(sc *bufio.Scanner) (string, error) {
 	if sc.Scan() {
-		return strings.TrimSpace(sc.Text())
+		return strings.TrimSpace(sc.Text()), nil
 	}
-	return ""
+	return "", errors.New("Failed to read input")
 }
