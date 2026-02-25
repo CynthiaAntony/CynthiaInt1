@@ -37,7 +37,12 @@ func main() {
 				fmt.Println(e)
 				return
 			}
-			remove(s, a)
+			_, t := remove(s, a)
+			if t == nil {
+				fmt.Println("String Removed")
+			} else {
+				fmt.Println(t)
+			}
 		case "check":
 			fmt.Print("Enter string to check: ")
 			s, e := takeinp(sc)
@@ -45,20 +50,20 @@ func main() {
 				fmt.Println(e)
 				return
 			}
-			t := check(s, a)
-			if t == true {
-				fmt.Printf("String '%v' is in the list\n", s)
+			_, t := check(s, a)
+			if t == nil {
+				fmt.Println("String is in the list")
 			} else {
-				fmt.Printf("String '%v' is not in the list\n", s)
+				fmt.Println(t)
 			}
 		case "list":
 			if len(a) == 0 {
 				fmt.Println("No strings in the list")
 				continue
 			}
-			fmt.Println("String: Count")
-			for i, v := range a {
-				fmt.Printf("%v: %v\n", i, v)
+			fmt.Println("Strings:")
+			for i := range a {
+				fmt.Printf("%v\n", i)
 			}
 		case "quit":
 			fmt.Println("Exiting...")
@@ -71,30 +76,26 @@ func main() {
 
 func add(s string, a map[string]int) {
 	if s != "" {
-		a[s] += 1
+		a[s] = 1
 		fmt.Println("String added")
 	} else {
 		fmt.Println("String cannot be empty, cannot add")
 	}
 }
 
-func remove(s string, a map[string]int) {
-	if s != "" && a[s] > 0 {
-		a[s] -= 1
-		fmt.Println("String removed")
-		if a[s] == 0 {
-			delete(a, s)
-		}
-	} else {
-		fmt.Println("String not found, cannot remove")
+func remove(s string, a map[string]int) (bool, error) {
+	if _, ok := a[s]; ok {
+		delete(a, s)
+		return true, nil
 	}
+	return false, errors.New("String not found")
 }
 
-func check(s string, a map[string]int) bool {
-	if s != "" && a[s] > 0 {
-		return true
+func check(s string, a map[string]int) (bool, error) {
+	if _, ok := a[s]; ok {
+		return true, nil
 	}
-	return false
+	return false, errors.New("String not found")
 }
 
 func takeinp(sc *bufio.Scanner) (string, error) {
