@@ -1,0 +1,36 @@
+name: Go CI Program 3
+
+on:
+  push:
+    branches: [main]
+    paths: ["statement3/**"]
+  pull_request:
+    branches: [main]
+    paths: ["statement3/**"]
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: ./statement3
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.25.7"
+          cache: true
+
+      - name: Tidy
+        run: go mod tidy
+
+      - name: Build
+        run: go build -v ./...
+
+      - name: Test
+        run: go test -v ./...
