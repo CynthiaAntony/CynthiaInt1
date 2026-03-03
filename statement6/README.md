@@ -45,60 +45,29 @@ kubectl apply -f deploy.yaml
 ```
 5. Attach to client terminal to access the running program
 ```bash
-kubectl attach -it trie-client-pod
+kubectl exec -it trie-client-pod -- ./client_app
 ```
 
 ---
 
 ## Example input
 ```bash
+Connected to server
+---String List Manager---
 Enter choice: 1. Add
 2. Remove
 3. Check
 4. List
 5. Exit: add
-Enter word: cat 
+Enter word: hi
 Word added
 Enter choice: 1. Add
 2. Remove
 3. Check
 4. List
-5. Exit: list
-Words : [cat cynthia antony]
-Enter choice: 1. Add
-2. Remove
-3. Check
-4. List
-5. Exit: remove
-Enter word: cat
-Word removed
-Enter choice: 1. Add
-2. Remove
-3. Check
-4. List
-5. Exit: list
-Words : [cynthia antony]
-Enter choice: 1. Add
-2. Remove
-3. Check
-4. List
-5. Exit: check
-Enter word: cynthia
-Word Exists
-Enter choice: 1. Add
-2. Remove
-3. Check
-4. List
-5. Exit: check
-Enter word: ant
-Word does not exist
-Enter choice: 1. Add
-2. Remove
-3. Check
-4. List
-5. Exit: remove
-Enter word: ant
-Word not found
+5. Exit: add
+Enter word: hello
+Word added
 Enter choice: 1. Add
 2. Remove
 3. Check
@@ -110,14 +79,36 @@ Enter choice: 1. Add
 2. Remove
 3. Check
 4. List
-5. Exit: list
-Words : [cyn cynthia antony]
+5. Exit: remove
+Enter word: cyn
+Word removed
+Enter choice: 1. Add
+2. Remove
+3. Check
+4. List
+5. Exit: add
+Enter word: cynthia
+Word added
 Enter choice: 1. Add
 2. Remove
 3. Check
 4. List
 5. Exit: list
-Words : [cyn cynthia antony]
+Words : [cynthia hi hello]
+Enter choice: 1. Add
+2. Remove
+3. Check
+4. List
+5. Exit: check
+Enter word: hey
+Word does not exist
+Enter choice: 1. Add
+2. Remove
+3. Check
+4. List
+5. Exit: check
+Enter word: hi
+Word Exists
 Enter choice: 1. Add
 2. Remove
 3. Check

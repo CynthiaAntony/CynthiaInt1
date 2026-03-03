@@ -43,3 +43,4 @@ spec:
       imagePullPolicy: Never
       stdin: true
       tty: true
+      command: ["/bin/sh", "-c", "sleep infinity"]
