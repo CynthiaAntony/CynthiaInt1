@@ -9,7 +9,7 @@ Rook basically brings Ceph storage into a Kubernetes cluster. It is open-source 
 
 ## Rook setup:
 
-1. Create a virtual machine (qemu is used to run a stable a linux vm) with 8GB RAM, 4 CPUs, and an extra disk (since rook needs a raw disk) for storage. Conatiner runtime is containerd since it is faster and uses less RAM comapared to Docker
+1. Create a virtual machine (qemu is used to run a stable a linux vm) with 8GB RAM, 4 CPUs, and an extra disk (since rook needs a raw disk) for storage. Container runtime is **containerd** since it is faster and uses less RAM comapared to Docker
 ```bash
 minikube start -p rook-ceph --driver=qemu --network=builtin --extra-disks=1 --container-runtime=containerd --memory=8192 --cpus=4
 ```
