@@ -41,7 +41,7 @@ minikube image load client.tar
 ```
 4. Deploy to kubernetes
 ```bash
-kubectl apply -f deploy.yaml
+kubectl apply -f kube.yaml
 ```
 5. Attach to client terminal to access the running program
 ```bash
