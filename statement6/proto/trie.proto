@@ -1,0 +1,21 @@
+syntax = "proto3";
+package trie;
+option go_package = "github.com/CynthiaAntony/CynthiaInt1/statement6/proto";
+message WordRequest {
+  string word = 1;
+}
+message BoolResponse{
+    bool exists = 1;
+}
+
+message ListResponse{
+    repeated string words = 1;
+}
+message Empty{}
+
+service TrieService{
+    rpc Add(WordRequest) returns (Empty);
+    rpc Remove(WordRequest) returns (BoolResponse);
+    rpc Check(WordRequest) returns (BoolResponse);
+    rpc List(Empty) returns (ListResponse);
+}
