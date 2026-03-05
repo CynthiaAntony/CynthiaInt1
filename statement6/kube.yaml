@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: trie-server
-          image: localhost/trie-server:latest
+          image: localhost/trie-server:v1
           imagePullPolicy: Never
           ports:
             - containerPort: 50051
@@ -39,7 +39,7 @@ metadata:
 spec:
   containers:
     - name: trie-client
-      image: localhost/trie-client:v3
+      image: localhost/trie-client:v1
       imagePullPolicy: Never
       stdin: true
       tty: true

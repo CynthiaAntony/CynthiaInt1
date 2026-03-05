@@ -29,12 +29,12 @@ protoc --go_out=. --go_opt=paths=source_relative \
 3. Build and load containers into minikube
 ```bash
 # Build images
-podman build -t trie-server:latest -f server.Dockerfile .
-podman build -t trie-client:v4 -f client.Dockerfile .
+podman build -t trie-server:v1 -f server.Dockerfile .
+podman build -t trie-client:v1 -f client.Dockerfile .
 
 # Save to tar and load into Minikube
-podman save -o server.tar localhost/trie-server:latest
-podman save -o client.tar localhost/trie-client:v3
+podman save -o server.tar localhost/trie-server:v1
+podman save -o client.tar localhost/trie-client:v1
 
 minikube image load server.tar
 minikube image load client.tar
