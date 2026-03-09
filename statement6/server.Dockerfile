@@ -1,0 +1,7 @@
+FROM golang:1.25.7-alpine
+WORKDIR /app
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . .
+RUN go build -o server_app server/main.go
+CMD ["./server_app"]

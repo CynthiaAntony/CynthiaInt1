@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: trie-server-service
+spec:
+  selector:
+    app: trie-server
+  ports:
+    - protocol: TCP
+      port: 50051
