@@ -1,4 +1,4 @@
-# Solution to statement 7
+# Solution to statement 6
 ---
 
 String list management system implemented using grpc
@@ -41,7 +41,7 @@ minikube image load client.tar
 ```
 4. Deploy to kubernetes
 ```bash
-kubectl apply -f kube.yaml
+kubectl apply -f k8s/
 ```
 5. Attach to client terminal to access the running program
 ```bash
@@ -50,7 +50,7 @@ kubectl exec -it trie-client-pod -- ./client_app
 
 ---
 
-## Example input
+## Example input - statement 6
 ```bash
 Connected to server
 ---String List Manager---
@@ -118,3 +118,91 @@ Exiting...
 ```
 
 ---
+
+## Example - statement 9
+```bash
+Connected to server
+---String List Manager---
+Enter choice: 1. Add
+2. Remove
+3. Check
+4. List
+5. Exit: list
+Words : []
+Enter choice: 1. Add
+2. Remove
+3. Check
+4. List
+5. Exit: add
+Enter word: hi
+Word added
+Enter choice: 1. Add
+2. Remove
+3. Check
+4. List
+5. Exit: add
+Enter word: hello
+Word added
+Enter choice: 1. Add
+2. Remove
+3. Check
+4. List
+5. Exit: list
+Words : [hi hello]
+Enter choice: 1. Add
+2. Remove
+3. Check
+4. List
+5. Exit: check
+Enter word: hi
+Word Exists
+Enter choice: 1. Add
+2. Remove
+3. Check
+4. List
+5. Exit: remove
+Enter word: hi
+Word removed
+Enter choice: 1. Add
+2. Remove
+3. Check
+4. List
+5. Exit: check
+Enter word: hi
+Word does not exist
+Enter choice: 1. Add
+2. Remove
+3. Check
+4. List
+5. Exit: list
+Words : [hello]
+Enter choice: 1. Add
+2. Remove
+3. Check
+4. List
+5. Exit: exit
+Exiting...
+```
+
+Run this command again: 
+```bash
+kubectl exec -it trie-client-pod -- ./client_app
+```
+
+And you get:
+```bash
+Connected to server
+---String List Manager---
+Enter choice: 1. Add
+2. Remove
+3. Check
+4. List
+5. Exit: list
+Words : [hello] #Persists
+Enter choice: 1. Add
+2. Remove
+3. Check
+4. List
+5. Exit: exit
+Exiting...
+```

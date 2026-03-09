@@ -11,7 +11,10 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"os"
 )
+
+const path= "/data/words.txt"
 
 type server struct {
 	pb.UnimplementedTrieServiceServer
@@ -24,6 +27,9 @@ func (s *server) Add(ctx context.Context, req *pb.WordRequest) (*pb.Empty, error
 	}
 	a := req.GetWord()
 	s.t.Add(a)
+	if err := s.t.Save(path); err != nil {
+		log.Printf("Error saving trie: %v", err)
+	}
 	log.Printf("Added word: %s", a)
 	return &pb.Empty{}, nil
 }
@@ -42,6 +48,9 @@ func (s *server) Remove(ctx context.Context, req *pb.WordRequest) (*pb.BoolRespo
 	}
 	a := req.GetWord()
 	removed := s.t.Remove(a)
+	if removed {
+		s.t.Save(path)
+	}
 	log.Printf("Removed word: %s, removed: %t", a, removed)
 	return &pb.BoolResponse{Exists: removed}, nil
 }
@@ -51,12 +60,20 @@ func (s *server) List(ctx context.Context, req *pb.Empty) (*pb.ListResponse, err
 	return &pb.ListResponse{Words: words}, nil
 }
 func main() {
+	trie := trie.InitTrie()
+	if err:= trie.Load(path); err!= nil{
+		if os.IsNotExist(err){
+			log.Println("No existing trie data found, starting with an empty trie...")
+		} else {
+			log.Fatalf("Error loading trie: %v", err)
+		}
+	}
 	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		log.Fatalf("Failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterTrieServiceServer(s, &server{t: trie.InitTrie()})
+	pb.RegisterTrieServiceServer(s, &server{t: trie})
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve: %v", err)
 	}

@@ -1,5 +1,10 @@
 package trie
 
+import (
+	"bufio"
+	"os"
+)
+
 type Node struct {
 	Children map[rune]*Node
 	IsEnd    bool
@@ -77,4 +82,30 @@ func (t *Trie) List() []string {
 	}
 	dfs(t.Root, "")
 	return res
+}
+
+func (t *Trie) Save(path string) error {
+	words := t.List()
+	file, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+	for _, w := range words {
+		file.WriteString(w + "\n")
+	}
+	return nil
+}
+
+func (t *Trie) Load(path string) error {
+	file, err := os.Open(path)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+	sc := bufio.NewScanner(file)
+	for sc.Scan() {
+		t.Add(sc.Text())
+	}
+	return nil
 }
